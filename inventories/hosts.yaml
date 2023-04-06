@@ -1,0 +1,7 @@
+---
+discord_bot:
+  hosts:
+    cpas.fun:
+      ansible_user: ubuntu
+      ansible_port: 5522
+
