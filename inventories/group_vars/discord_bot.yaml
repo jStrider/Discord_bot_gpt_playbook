@@ -1,0 +1,25 @@
+---
+
+
+network_management:
+  firewall:
+    allowed_ports:
+      - name: ssh_second
+        port: 5522
+      - name: ssh
+        port: 22
+  ssh:
+    port: 5522
+
+user_management:
+  groups:
+    - admin
+    - sudo
+  users:
+    julien_rw:
+      username: jrw
+      password: 
+      authorized_ssh_keys:
+      groups:
+        - sudo
+      

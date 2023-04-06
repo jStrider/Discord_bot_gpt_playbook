@@ -1,0 +1,31 @@
+---
+- name: Setup sshd_config
+  become: true
+  ansible.builtin.template:
+    src: sshd_config.j2
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: "0600"
+  notify:
+    - restart sshd
+
+
+- name: Setup ufw
+  become: true
+  block:
+    - name: change ufw default policy
+      community.general.ufw:
+        policy: deny
+        direction: incoming
+        state: enabled
+    - name: allow ports
+      community.general.ufw:
+        name: "{{ item.name }}"
+        port: "{{ item.port }}"
+        state: enabled
+        direction: incoming
+        policy: allow
+      loop: "{{ network_management.firewall.allowed_ports }}"
+  notify:
+    - restart ufw

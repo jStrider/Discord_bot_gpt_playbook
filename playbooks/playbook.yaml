@@ -2,4 +2,6 @@
 - name: Setup the vps for discord_bot
   hosts: discord_bot
   roles:
+    - users
     - software
+    - network

@@ -9,4 +9,3 @@
       - ufw
       - vim
       - python3
-      - openssh

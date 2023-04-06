@@ -1,0 +1,18 @@
+---
+- name: Ensure groups exists
+  become: true
+  ansible.builtin.group:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ user_management.groups }}"
+  when: item is defined
+
+- name: Ensure users exist
+  become: true
+  ansible.builtin.user:
+    name: "{{ item.username }}"
+    password: "{{ item.password }}"
+    groups: "{{ item.groups }}"
+    state: present
+  loop: "{{ user_management.users | flatten(levels=1) }}"
+  when: item.username is defined
