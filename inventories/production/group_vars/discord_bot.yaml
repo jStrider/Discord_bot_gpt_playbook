@@ -1,0 +1,16 @@
+network:
+  ssh_port: 5522
+
+
+
+groups:
+  - admin
+users:
+  julien_rw:
+    username: jrw
+    password: 
+    authorized_ssh_keys:
+      - 
+    groups:
+      - sudo
+    

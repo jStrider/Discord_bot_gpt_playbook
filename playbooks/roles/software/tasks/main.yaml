@@ -2,7 +2,11 @@
 - name: Install packages
   become: true
   ansible.builtin.apt:
-    pkg:
+    update_cache: true
+    clean: true
+    autoremove: true
+    name:
       - ufw
       - vim
       - python3
+      - openssh
