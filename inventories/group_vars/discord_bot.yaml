@@ -6,8 +6,10 @@ network_management:
     allowed_ports:
       - name: ssh_second
         port: 5522
+        proto: tcp
       - name: ssh
         port: 22
+        proto: tcp
   ssh:
     port: 5522
 

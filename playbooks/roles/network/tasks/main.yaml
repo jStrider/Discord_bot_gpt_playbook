@@ -18,14 +18,15 @@
       community.general.ufw:
         policy: deny
         direction: incoming
-        state: enabled
+        
     - name: allow ports
       community.general.ufw:
-        name: "{{ item.name }}"
+        comment: "{{ item.name }}"
         port: "{{ item.port }}"
-        state: enabled
-        direction: incoming
-        policy: allow
+        proto: "{{ item.proto }}"
+        direction: in
+        rule: allow
       loop: "{{ network_management.firewall.allowed_ports }}"
+
   notify:
     - restart ufw
