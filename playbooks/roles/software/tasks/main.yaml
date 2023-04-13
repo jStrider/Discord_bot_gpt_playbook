@@ -1,4 +1,16 @@
 ---
+- name: Add specified repository docker into sources list
+  become: true
+  ansible.builtin.apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu jammy stable
+    state: present
+
+- name: Add the ocker gpg key
+  become: true
+  ansible.builtin.apt_key:
+    data: "{{ lookup('ansible.builtin.file', 'docker.asc') }}"
+    state: present
+
 - name: Install packages
   become: true
   ansible.builtin.apt:
@@ -7,5 +19,16 @@
     autoremove: true
     name:
       - ufw
+      - ca-certificates
+      - curl
+      - gnupg
       - vim
       - python3
+      - python3-pip
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+      
+
