@@ -1,0 +1,14 @@
+version: "3"
+services:
+  botgpt:
+    image: oopandaoo/botgpt:latest
+    volumes:
+        - /etc/botgpg:/data
+    restart: always
+    
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /root/.docker/config.json:/config.json
+    command: --interval 30

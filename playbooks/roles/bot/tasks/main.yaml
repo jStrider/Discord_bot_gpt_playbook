@@ -6,50 +6,9 @@
     state: directory
     mode: '0755'
 
-- name: Ensure docker directory exit
-  become: true
-  ansible.builtin.file:
-    path: /etc/docker
-    state: directory
-    mode: '0755'
-
 - name: template env file
   become: true
   ansible.builtin.template:
     src: env.j2
     dest: /etc/botgpg/env
     mode: '0644'
-
-- name: download bot
-  ansible.builtin.get_url:
-    url: https://github.com/jStrider/Discord_bot_docker/archive/refs/tags/0.0.1.tar.gz
-    dest: /tmp/bot.tar.gz
-    mode: '0644'
-
-- name: extract bot
-  become: true
-  ansible.builtin.unarchive:
-    src: /tmp/bot.tar.gz
-    dest: /etc/docker
-    remote_src: true
-
-- name: build bot
-  become: true
-  ansible.builtin.docker_image:
-    name: discord_bot
-    source: "build"
-    build:
-      path: /etc/docker/Discord_bot_docker-0.0.1/
-      pull: true
-      nocache: true
-
-- name: run bot
-  become: true
-  ansible.builtin.docker_container:
-    name: discord_bot
-    image: discord_bot
-    state: started
-    detach: true
-    restart_policy: always
-    volumes:
-      - /etc/botgpg:/data
